@@ -1,0 +1,91 @@
+﻿@page "/"
+@using AutoMapper;
+@using UfoBlog.Domain.Model;
+@using System.Globalization;
+@using UfoBlog.Domain.Dto.Article;
+@using UfoBlog.Common.Authorization;
+@using Microsoft.Extensions.Configuration;
+@inject IJSRuntime _js;
+@inject IMapper _mapper;
+@inject IconService iconService;
+@inject IConfiguration _configuration;
+@inject IDbContextFactory<BlogContext> _dbFactory;
+
+
+<div class="project">
+    <div class="userInfo">
+        <div class="myDiv">
+            <p>个人说说</p>
+            <p>@($"{DateTime.Now.ToString("MMMM", CultureInfo.CreateSpecificCulture("en-GB"))} {DateTime.Now.Day}")</p>
+        </div>
+        <div class="secondDiv">
+            <div class="itemDiv">
+                <Tooltip Placement="@Placement.Top" Title="@("写作数量")">
+                    <div class="item-span">
+                        <span class="span">@otherInfo.Number.ToString()</span>
+                        <span class="span-second">The Number</span>
+                    </div>
+                </Tooltip>
+                <Tooltip Placement="@Placement.Top" Title="@("点赞数量")">
+                    <div class="item-span">
+                        <span class="span">@otherInfo.LikeIt.ToString()</span>
+                        <span class="span-second">The Like It</span>
+                    </div>
+                </Tooltip>
+                <Tooltip Placement="@Placement.Top" Title="@("评论数量")">
+                    <div class="item-span">
+                        <span class="span">@otherInfo.Comments.ToString()</span>
+                        <span class="span-second">The Comments</span>
+                    </div>
+                </Tooltip>
+            </div>
+            <div></div>
+        </div>
+    </div>
+    @{
+        @*个人说说*@
+        if (sayList != null && sayList.Count > 0)
+        {
+            var length = sayList.Count;
+            for (var i = 1; i <= length; i++)
+            {
+                var index = i - 1;
+                <div class="containerDiv-second">
+                    <div class="userInfoDiv">
+                        <Avatar Src="@user.ImageUrl" Size="48" Style="@builder.GetSection("Index")["avatar"]" />
+                        <div class="span">
+                            <span class="name">@user.UserName</span>
+                            <span class="time">@GetIntervalTime(sayList[index].CreateTime)</span>
+                        </div>
+                        <div class="DynamicImg">
+                            <span class="font">10000</span>
+                        </div>
+                    </div>
+                    <div class="contentDiv">
+                        @sayList[index].Content
+                    </div>
+                    <div class="options">
+                        <div class="icon"><IconFont Type="icon-ico_yueduliang" Class="IconFontNav" Style="@builder.GetSection("Index")["iconStyle"]" /><span class="fontDiv">@sayList[index].ViewNum</span></div>
+                        <div class="icon"><IconFont Type="icon-31pinglun" Class="IconFontNav" Style="@builder.GetSection("Index")["iconStyle"]" /><span class="fontDiv">0</span></div>
+                        <div class="icon"><IconFont Type="icon-dianzan" Class="IconFontNav" Style="@(builder.GetSection("Index")["iconStyle"] + builder.GetSection("Index")["iconStyleTop"])" /><span class="fontDiv">@sayList[index].LikeIt</span></div>
+                    </div>
+                </div>
+            }
+        }
+    }
+
+</div>
+<UfoBlog.Pages.Components.Message></UfoBlog.Pages.Components.Message>
+
+
+@code{
+
+    #region 初始化参数
+
+    private Admin user;
+    private List<DynamicManDto> sayList;
+
+    OtherInfo otherInfo = new OtherInfo();
+
+    #endregion
+}

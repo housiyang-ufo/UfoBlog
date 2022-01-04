@@ -1,0 +1,72 @@
+﻿
+@page "/Admin/Category";
+@layout BackLayout;
+@using AutoMapper;
+@using UfoBlog.Domain.Model;
+@using UfoBlog.Domain.Dto.Article;
+@inject IMapper _mapper;
+@inject ModalService _modalService;
+@inject NotificationService _notice;
+@inject NavigationManager NavigationManager;
+@inject IDbContextFactory<BlogContext> _dbFactory;
+
+<div class="containerDiv">
+    <div class="topDiv">
+        <Breadcrumb Style="margin-bottom: 20px !important;">
+            <BreadcrumbItem Href="/Admin/Index">主页</BreadcrumbItem>
+            <BreadcrumbItem>分类列表</BreadcrumbItem>
+        </Breadcrumb>
+        <Button Type="@ButtonType.Primary" @onclick="ShowModal">添加分类</Button>
+    </div>
+
+    <Table @ref="table"
+           TItem="CategoryDto"
+           DataSource="@categories"
+           Total="_total"
+           @bind-PageIndex="_pageIndex"
+           @bind-PageSize="_pageSize"
+           OnPageIndexChange="PageIndexChanged">
+        <Selection Key="@(context.Id.ToString())" />
+        <Column Title="名称" @bind-Field="@context.Name" Width="200" Ellipsis />
+        <Column Title="描述" @bind-Field="@context.Description" Width="600" Ellipsis />
+        <Column Title="数量" @bind-Field="@context.Number" Align="ColumnAlign.Center" />
+        <Column Title="创建时间" @bind-Field="@context.CreateTime" Format="yyyy-MM-dd" />
+        <ActionColumn Title="操作">
+            <Space>
+                <SpaceItem><Button OnClick="()=>Edit(context.Id)">编辑</Button></SpaceItem>
+                <SpaceItem><Button Danger OnClick="()=>ShowConfirm(context.Id)">删除</Button></SpaceItem>
+            </Space>
+        </ActionColumn>
+    </Table>
+
+    <Modal Title="@("添加分类")"
+           Visible="@_visible"
+           OnOk="@HandleOk"
+           OnCancel="@HandleCancel"
+           ConfirmLoading="@_confirmLoading">
+        <div class="modelDiv">
+            <Input Placeholder="名称...." @bind-Value="@textName" Style="margin-bottom:5px;" />
+            <TextArea Placeholder="描述...." AutoSize="true" @bind-Value="@textDescription" />
+        </div>
+    </Modal>
+</div>
+
+@code {
+    #region 初始化参数
+
+    int _pageIndex = 1;
+    int _pageSize = 10;
+    int _total = 0;
+
+    List<CategoryDto> categories;
+    ITable table;
+
+    //对话框
+    bool _visible = false;
+    bool _confirmLoading = false;
+    string textName = null;
+    string textDescription = null;
+
+    RenderFragment icon =@<Icon Type="exclamation-circle" Theme="outline"></Icon>;
+#endregion
+}

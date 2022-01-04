@@ -1,0 +1,38 @@
+﻿@using AutoMapper;
+@using UfoBlog.Domain.Model;
+@using UfoBlog.Domain.Dto.OnStage;
+@using UfoBlog.Domain.Dto.Article;
+@using Microsoft.Extensions.Configuration;
+@inject IMapper _mapper;
+@inject IConfiguration  conf;
+@inject IDbContextFactory<BlogContext> _dbFactory;
+
+<div class="message" id="message">
+    <div class="Hitokoto" id="Hitokoto">
+        <div class="font">@wordStr.Hitokoto</div>
+        <div class="from">——@wordStr.From</div>
+        <div style="clear:both;"></div>
+    </div>
+    @*<div class="projects-section-header">
+        <p class="font">博主信息</p>
+    </div>
+    <div class="contentDiv">
+        @{
+            if (tagDto != null && tagDto.Count > 0)
+            {
+                var length = tagDto.Count;
+                @for (var i = 1; i <= length; i++)
+                {
+                    var index = i - 1;
+                    <Tag Color="@SwitchColor(i)">@tagDto[index].Name</Tag>
+                }
+            }
+        }
+    </div>*@
+    <div class="contentDiv" id="other"></div>
+</div>
+
+@code {
+    private List<TagDto> tagDto = new List<TagDto>();
+    private WordString wordStr = new WordString();
+}

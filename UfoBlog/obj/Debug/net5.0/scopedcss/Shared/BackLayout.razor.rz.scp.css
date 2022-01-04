@@ -1,0 +1,107 @@
+.div[b-mww8b5qk2c] {
+/*    display:flex;*/
+    width: 100%;
+    min-height:100%;
+    transition: 0.2s;
+    background-color:#fff;
+}
+    .div .myDiv[b-mww8b5qk2c] {
+        width:100%;
+        display:flex;
+        flex-direction:row;
+        justify-content:space-between
+    }
+        .div .myDiv .nav[b-mww8b5qk2c] {
+            position: relative;
+            width: 16.6%;
+            min-width:271px;
+        }
+            .div .myDiv .nav .header[b-mww8b5qk2c] {
+                display:flex;
+                flex-direction:row;
+                justify-content:space-between;
+                position: relative;
+                width: 100%;
+                height: 45px;
+                z-index: 2;
+                padding: 16px 0;
+                box-sizing: content-box;
+                box-shadow: 0 10px 8px -8px #f0f1f2;
+            }
+                .div .myDiv .nav .header .p[b-mww8b5qk2c] {
+                    color: #1f1c2e;
+                    font-size: 20px;
+                    line-height: 35px;
+                    font-weight: 700;
+                    margin-left: 40px;
+                    cursor: default;
+                }
+                .div .myDiv .nav .header[b-mww8b5qk2c]  .ant-divider-vertical {
+                    height: 26px !important;
+                    margin: 0 !important;
+                    position:relative;
+                    top:7px;
+                    overflow: hidden;
+                }
+            .div .myDiv .nav[b-mww8b5qk2c]  .ant-menu-item-divider {
+                margin-left: 40px;
+                /*margin-right:25px;*/
+                width: 205px;
+                margin-bottom: 20px;
+            }
+            .div .myDiv .nav[b-mww8b5qk2c]  .ant-menu-item-group-title {
+                padding-left: 40px;
+            }
+            .div .myDiv .nav .Espan[b-mww8b5qk2c] {
+                margin-left: 16px;
+                font-family: Avenir,-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,'Noto Sans',sans-serif,'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol','Noto Color Emoji',sans-serif;
+            }
+            .div .myDiv .nav .span[b-mww8b5qk2c] {
+                margin-left:6px;
+                opacity:0.67;
+                font-size: 12px;
+                font-weight: 400;
+            }
+        .div .myDiv .body[b-mww8b5qk2c] {
+            width: 83.4%;
+            height:100%;
+        }
+            .div .myDiv .body .header[b-mww8b5qk2c] {
+                position: relative;
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                /*        width: 100%;*/
+                height: 40px;
+                z-index: 2;
+                padding: 16px 0;
+                padding-bottom:21px;
+                box-sizing: content-box;
+                box-shadow: 0 10px 8px -8px #f0f1f2;
+            }
+            .div .myDiv .body .header .firstDiv[b-mww8b5qk2c] {
+                box-sizing:border-box;
+                margin-left:24px;
+            }
+                .div .myDiv .body .header[b-mww8b5qk2c]  input {
+                    outline: 0;
+                    border: none !important;
+                    font-size: 14px;
+                    line-height: 40px;
+                    padding: 0;
+                    width: 250px;
+                }
+                    .div .myDiv .body .header[b-mww8b5qk2c]  input ::-webkit-input-placeholder {
+                        color: rgba(0,0,0,0.5);
+                    }
+                .div .myDiv .body .header[b-mww8b5qk2c]  input:focus {
+                    outline: 0;
+                    position:relative;
+                    box-shadow: none !important;
+                }
+            .div .myDiv .body .continerDiv[b-mww8b5qk2c] {
+                padding: 24px 16px;
+                width: 100%;
+                height:100%;
+                display:block;
+            }

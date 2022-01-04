@@ -1,0 +1,82 @@
+﻿@page "/Article"
+@using AutoMapper;
+@using UfoBlog.Domain.Model;
+@using System.Globalization;
+@using UfoBlog.Domain.Dto.Article;
+@inject IJSRuntime _js;
+@inject IMapper _mapper;
+@inject NavigationManager _navigationManager;
+@inject IDbContextFactory<BlogContext> _dbFactory;
+
+<div class="project">
+    <div class="userInfo">
+        <div class="myDiv">
+            <p>文章列表</p>
+            <p>@($"{DateTime.Now.ToString("MMMM", CultureInfo.CreateSpecificCulture("en-GB"))} {DateTime.Now.Day}")</p>
+        </div>
+        <div class="secondDiv">
+            <div class="itemDiv">
+                <Tooltip Placement="@Placement.Top" Title="@("写作数量")">
+                    <div class="item-span">
+                        <span class="span">@otherInfo.Number.ToString()</span>
+                        <span class="span-second">The Number</span>
+                    </div>
+                </Tooltip>
+                <Tooltip Placement="@Placement.Top" Title="@("点赞数量")">
+                    <div class="item-span">
+                        <span class="span">@otherInfo.LikeIt.ToString()</span>
+                        <span class="span-second">The Like It</span>
+                    </div>
+                </Tooltip>
+                <Tooltip Placement="@Placement.Top" Title="@("评论数量")">
+                    <div class="item-span">
+                        <span class="span">@otherInfo.Comments.ToString()</span>
+                        <span class="span-second">The Comments</span>
+                    </div>
+                </Tooltip>
+            </div>
+            <div></div>
+        </div>
+    </div>
+    @{
+        if (articles != null && articles.Count > 0)
+        {
+            var length = articles.Count;
+            for (var i = 1; i <= length; i++)
+            {
+                var index = i - 1;
+                <div class="containerDiv">
+                    <div class="imgDiv" style="background-image:url(@articles[index].Image)"></div>
+                    <div class="context-p">
+                        <a @onclick="()=>NavToDetailById(articles[index].Id)">
+                            <h3 style="font-size: 16px;font-weight:700;">@articles[index].Title</h3>
+                            <p class="p">@articles[index].Description</p>
+                        </a>
+                    </div>
+                </div>
+            }
+        }
+
+    }
+    @*<div class="containerDiv">
+        <div class="imgDiv"></div>
+        <div class="context-p">
+            <a>
+                <h3 style="font-size: 16px;font-weight:700;">WordPress响应式二次元主题Giligili</h3>
+                <p class="p">很久之前就想写一套二次元主题，之前的Memory其实初期是有二次元的影子的，但后来还是把这种风格砍了，于是就有了重写一款完全二次元风格的主题。在这样的背景下，这款主题——Giligili就诞生了。 不得不说，写主题真的是一件非常累人的事情，不过在这过程也学到了不少。从刚开始写Memory的一脸懵逼到 […]</p>
+            </a>
+        </div>
+    </div>*@
+
+</div>
+@*<div class="message" id="message"></div>*@
+<UfoBlog.Pages.Components.Message></UfoBlog.Pages.Components.Message>
+
+@code {
+    int _pageIndex = 1;
+    int _pageSize = 10;
+    int _total = 0;
+    List<ArticleDto> articles;
+
+    OtherInfo otherInfo = new OtherInfo();
+}

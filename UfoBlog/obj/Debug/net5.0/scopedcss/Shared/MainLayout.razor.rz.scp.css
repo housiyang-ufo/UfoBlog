@@ -1,0 +1,8 @@
+.div-container-first[b-bmi414aga0] {
+    width: 100%;
+    max-width: 1500px;
+/*    max-width: 1800px;*/
+    position: relative;
+    height: 100%;
+    transition: 0.2s;
+}

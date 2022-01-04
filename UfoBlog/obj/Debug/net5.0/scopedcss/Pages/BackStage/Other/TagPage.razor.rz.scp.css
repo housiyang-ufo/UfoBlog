@@ -1,0 +1,11 @@
+.containerDiv[b-jy0oqwv0cr] {
+    width: 100%;
+    height: 100%;
+    background-color: #fff;
+}
+
+    .containerDiv .topDiv[b-jy0oqwv0cr] {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+    }

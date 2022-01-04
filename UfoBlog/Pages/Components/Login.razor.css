@@ -1,0 +1,28 @@
+﻿.index {
+    display: flex;
+    position: relative;
+    align-items: center;
+    padding-top: 100px;
+    flex-direction: column;
+}
+.layout {
+    width: 400px;
+    display: flex;
+    padding: 50px 40px;
+    border-radius: 5px;
+    align-items: center;
+    flex-direction: column;
+    background-color: #fff;
+    box-shadow: 0 2px 8px #f0f1f2;
+}
+    .layout ::deep h1 {
+        width: 160px;
+        font-weight: 700;
+        margin: 25px auto;
+    }
+    .layout ::deep button {
+        width: 320px;
+    }
+    .layout ::deep ant-form-item-control-input-content {
+        width: 320px;
+    }

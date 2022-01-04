@@ -1,0 +1,75 @@
+﻿@page "/Admin/Article";
+
+@using AutoMapper; 
+@using UfoBlog.Domain.Model;
+@layout BackLayout;
+@inject IMapper _mapper;
+@inject NavigationManager NavigationManager;
+@inject IDbContextFactory<BlogContext> _dbFactory;
+
+@using UfoBlog.Domain.Dto.Article;
+
+<div class="containerDiv">
+    <div class="topDiv">
+        <Breadcrumb Style="margin-bottom: 20px !important;">
+            <BreadcrumbItem Href="/Admin/Index">主页</BreadcrumbItem>
+            <BreadcrumbItem>文章列表</BreadcrumbItem>
+        </Breadcrumb>
+        <Button Type="@ButtonType.Primary" @onclick='()=> { NavigationManager.NavigateTo("Admin/Article/Create"); }'>新建文章</Button>
+    </div>
+
+    <Table @ref="table"
+           TItem="ArticleDto"
+           DataSource="@articles"
+           Total="_total"
+           @bind-PageIndex="_pageIndex"
+           @bind-PageSize="_pageSize"
+           @bind-SelectedRows="selectedRows"
+           OnPageIndexChange="PageIndexChanged">
+        <Selection Key="@(context.Id.ToString())" />
+        <Column Title="标题" @bind-Field="@context.Title" Width="400" Ellipsis >
+            <a @onclick='()=> NavigationManager.NavigateTo($"/Detail/{context.Id}")'>@context.Title</a>
+        </Column>
+        <Column Title="类型" @bind-Field="@context.TypeName" />
+        <Column Title="标签" Field="@context.Tag" Width="300" Ellipsis>
+            @{
+                if (!string.IsNullOrWhiteSpace(context.Tag))
+                {
+                    var tags = context.Tag.Split(",");
+                    var length = tags.Count();
+                    @for (var i = 1; i <= length; i++)
+                    {
+                        var index = i - 1;
+                        <Tag Color="@SwitchColor(i)">@tags[index]</Tag>
+                    }
+                }
+            }
+        </Column>
+        <Column Title="创建时间" @bind-Field="@context.CreateTime" Format="yyyy-MM-dd" />
+        <ActionColumn Title="操作">
+            <Space>
+                <SpaceItem><Button OnClick="()=>Edit(context.Id)">编辑</Button></SpaceItem>
+                <SpaceItem><Button Danger OnClick="()=>Delete(context.Id)">删除</Button></SpaceItem>
+            </Space>
+        </ActionColumn>
+    </Table>
+</div>
+
+@code {
+    #region 初始化参数
+
+    int _pageIndex = 1;
+    int _pageSize = 10;
+    int _total = 0;
+
+    IEnumerable<ArticleDto> selectedRows;
+
+    List<ArticleDto> articles;
+    ITable table;
+
+    string[] color = { "#f50", "#2db7f5", "#87d068", "#108ee9", "HotPink", "DarkRed", "rgb(143, 201, 146)", "rgb(105, 58, 236)" };
+
+    #endregion
+
+
+}

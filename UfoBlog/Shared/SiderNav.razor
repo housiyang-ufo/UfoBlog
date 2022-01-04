@@ -1,0 +1,27 @@
+﻿@inherits LayoutComponentBase
+@using UfoBlog.Domain.Dto;
+@layout MainLayout;
+@inject NavigationManager _navigationManager;
+
+<div class="div-container">
+    <div class="sidebar" id="sidebar">
+        @foreach (var i in Navs)
+        {
+            <Icon Class='@(Selected == i.Icon ?  "link-selected":"link-home")' Type="@i.Icon" Theme="outline" @onclick="@(e=>OnClickTar(i.Icon))" />
+        }
+    </div>
+    @Body
+</div>
+
+@code {
+    #region 初始化参数
+
+    private List<NavTarDto> Navs = new List<NavTarDto>()
+{
+        new NavTarDto{ Title="主页", Icon="home", Url="/" },
+        new NavTarDto{ Title="博客", Icon="book", Url="/Article" },
+        new NavTarDto{ Title="关于我", Icon="user", Url="" },
+    };
+
+    #endregion
+}

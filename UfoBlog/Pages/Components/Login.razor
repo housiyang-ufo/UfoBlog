@@ -1,0 +1,53 @@
+﻿@page "/Login/{Success?}";
+@layout MainLayout;
+@using System.ComponentModel;
+@using UfoBlog.Data.Interface;
+@using Microsoft.AspNetCore.Http;
+@using Microsoft.AspNetCore.DataProtection;
+@using System.ComponentModel.DataAnnotations;
+
+@inject IAccountClient _client;
+@inject NotificationService _notice;
+@inject NavigationManager NavigationManager;
+@inject IHttpContextAccessor _context;
+@inject IDataProtectionProvider _dataProtectionProvider;
+
+<div class="index">
+    <div class="layout">
+        <div>
+            <h1 class="h1">后台登录</h1>
+            <Form Model="@model"
+                  OnFinish="OnFinish"
+                  OnFinishFailed="OnFinishFailed">
+                <FormItem>
+                    <Input @bind-Value="@context.Username" />
+                </FormItem>
+                <FormItem>
+                    <InputPassword @bind-Value="@context.Password" />
+                </FormItem>
+                <FormItem>
+                    <Button Type="@ButtonType.Primary" HtmlType="submit" Loading="@loading">
+                        登录
+                    </Button>
+                </FormItem>
+            </Form>
+        </div>
+    </div>
+</div>
+
+@code {
+    public class Model
+    {
+        [Required, DisplayName("")]
+        public string Username { get; set; }
+        [Required, DisplayName("")]
+        public string Password { get; set; }
+    }
+
+    [Parameter]
+    public string Success { get; set; }
+
+    private bool loading = false;
+
+    private Model model = new Model();
+}

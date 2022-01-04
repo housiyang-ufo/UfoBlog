@@ -1,0 +1,110 @@
+﻿@page "/Admin/Dynamic";
+@layout BackLayout;
+
+@using AutoMapper;
+@using UfoBlog.Domain.Model;
+@using UfoBlog.Domain.Dto.Article;
+@using Microsoft.Extensions.Configuration;
+@inject IJSRuntime _js;
+@inject IMapper _mapper;
+@inject IConfiguration  conf;
+@inject IconService iconService;
+@inject NotificationService _notice;
+@inject IConfiguration _configuration;
+@inject IDbContextFactory<BlogContext> _dbFactory;
+
+<div class="containerDiv">
+    <div class="topDiv">
+        <Breadcrumb Style="margin-bottom: 20px !important;">
+            <BreadcrumbItem Href="/Admin/Index">主页</BreadcrumbItem>
+            <BreadcrumbItem>动态列表</BreadcrumbItem>
+        </Breadcrumb>
+        <Button Type="@ButtonType.Primary" @onclick="ShowModal">发布动态</Button>
+    </div>
+
+    <Table @ref="table"
+           TItem="DynamicManDto"
+           DataSource="@dynamicManDtos"
+           Total="_total"
+           @bind-PageIndex="_pageIndex"
+           @bind-PageSize="_pageSize"
+           OnPageIndexChange="PageIndexChanged">
+        <Selection Key="@(context.Id.ToString())" />
+        <Column Title="内容" @bind-Field="@context.Content" Width="200" Ellipsis />
+        <Column Title="点赞量" @bind-Field="@context.LikeIt" Width="600" Align="ColumnAlign.Center" />
+        <Column Title="阅读量" @bind-Field="@context.ViewNum" Align="ColumnAlign.Center" />
+        <Column Title="创建时间" @bind-Field="@context.CreateTime" Format="yyyy-MM-dd" />
+        <ActionColumn Title="操作">
+            <Space>
+                <SpaceItem><Button OnClick="()=>Edit(context.Id)">编辑</Button></SpaceItem>
+                <SpaceItem><Button Danger>删除</Button></SpaceItem>
+            </Space>
+        </ActionColumn>
+    </Table>
+
+    @{
+        RenderFragment footer = @<Template>
+            <Button OnClick="@InputFileClick" @key="@( "Upload" )"
+                    Type="@ButtonType.Primary"
+                    Loading="@_loading">
+                上传
+            </Button>
+            <Button OnClick="@HandleOk" @key="@( "Submit" )"
+                    Type="@ButtonType.Primary"
+                    Loading="@_loading">
+                发布
+            </Button>
+            <Button OnClick="@HandleCancel" @key="@( "Cancel" )">取消</Button>
+        </Template>;
+    }
+    <Modal Title="@("发布动态")"
+           Visible="@_visible"
+           OnOk="@HandleOk"
+           OnCancel="@HandleCancel"
+           Footer="@footer">
+        <div class="modelDiv">
+            <InputFile id="inputFile" OnChange="@LoadFiles" multiple style="display:none" @ref="inputFile" />
+            <TextArea Placeholder="内容...." AutoSize="true" @bind-Value="@textContent" />
+            <div class="img">
+                @{
+                    if (imageList != null && imageList.Count > 0)
+                    {
+                        var length = imageList.Count;
+                        var host = conf.GetValue(typeof(String), "URLS");
+                        for (var i = 1; i <= length; i++)
+                        {
+                            var index = i - 1;
+                            <div>
+                                <IconFont Type="icon-ziyuan" Style="position: relative; z-index: 5; top: -7px; left: 86px;cursor:pointer;" OnClick="()=>ImageDelete(index)" />
+                                <Image Preview="false" Src="@(host + imageList[index].Substring(7))" Style=" position: relative; top: -22px;" />
+                            </div>
+                        }
+                    }
+                }
+            </div>
+        </div>
+    </Modal>
+</div>
+
+@code {
+    int _pageIndex = 1;
+    int _pageSize = 10;
+    int _total = 0;
+
+    List<DynamicManDto> dynamicManDtos;
+    ITable table;
+
+    //对话框
+    bool _visible = false;
+    string textContent = null;
+
+    //上传图片
+    private List<string> imageList = new List<string>();
+
+    RenderFragment icon =@<Icon Type="exclamation-circle" Theme="outline"></Icon>;
+
+private bool _loading = false;
+private InputFile inputFile;
+
+
+}

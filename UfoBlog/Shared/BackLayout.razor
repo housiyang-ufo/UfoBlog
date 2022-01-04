@@ -1,0 +1,74 @@
+﻿@inherits LayoutComponentBase;
+@inject IJSRuntime JS
+
+@using UfoBlog.Domain.Dto
+
+<div class="div">
+    <div class="myDiv">
+        <div class="nav">
+            <div class="header">
+                <p class="p"><Icon Type="chrome" Theme="outline" Spin="true" Style="font-size:40px;" /><font style="position: relative; top: 1px;margin-left:5px;">UFO233</font><font color="#1890ff">后台管理</font></p>
+                <Divider Type="DirectionVHType.Vertical" />
+            </div>
+            <Menu Style="width: 100%; height: calc(100% - 77px);"
+                  Mode=@MenuMode.Inline>
+                <MenuItemGroup Key="Article" Title="写作管理" Style="margin-top:20px;">
+                    <MenuDivider Style="margin-bottom:20px;"></MenuDivider>
+                    @foreach (var item in Article.Select((value, i) => (value, i)))
+                    {
+                        <MenuItem Key=@item.i.ToString() RouterLink=@item.value.Url RouterMatch=NavLinkMatch.Prefix>
+                            <span class="Espan">@item.value.IconName</span>
+                            <span class="span">@item.value.Title</span>
+                        </MenuItem>
+                    }
+                </MenuItemGroup>
+            </Menu>
+        </div>
+        <div class="body">
+            <div class="header">
+                <div class="firstDiv">
+                    <Icon Type="search" Theme="outline" Style="font-size: 14px; color: rgba(0,0,0,0.5);position:relative;top:-2px;" />
+                    <AutoComplete @bind-Value="@InputValue" Options="@options" Placeholder="全局搜索..."/>
+                </div>
+            </div>
+            <diov class="continerDiv">
+                @Body
+            </diov>
+        </div>
+    </div>
+</div>
+
+@code {
+
+    #region 初始化参数
+
+    /// <summary>
+    /// 写作管理
+    /// </summary>\
+    protected static List<NavTarDto> Article = new List<NavTarDto>()
+{
+        new NavTarDto{ Title=" 文章", Url="Admin/Article", Icon="book", IconName="Article"},
+        new NavTarDto { Title = " 说说", Url = "Admin/Dynamic", Icon = "book", IconName = "SayIt" },
+        new NavTarDto { Title = " 标签", Url = "Admin/Tag", Icon = "book", IconName = "Tag" },
+        new NavTarDto { Title = " 分类", Url = "Admin/Category", Icon = "book", IconName = "Category" },
+    };
+
+    #endregion
+
+    private IJSObjectReference module;
+    private string InputValue { get; set; }
+
+    List<string> options = new List<string>()
+    {
+        "Beijing","Shanghai","Guangzhou","Shenzhen","Chongqing","Wuhan"
+    };
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            module = await JS.InvokeAsync<IJSObjectReference>("import",
+    "./js/BackLayout.razor.js");
+        }
+    }
+}

@@ -1,0 +1,122 @@
+﻿@page "/Admin/Article/Create";
+@layout BackLayout;
+
+@using AutoMapper;
+@using UfoBlog.Domain.Model;
+@using UfoBlog.Domain.Dto.Article;
+@using Microsoft.Extensions.Configuration;
+@inject IJSRuntime _js;
+@inject IMapper _mapper;
+@inject IConfiguration  conf;
+@inject NotificationService _notice;
+@inject NavigationManager NavigationManager;
+@inject IDbContextFactory<BlogContext> _dbFactory;
+
+<div class="containerDiv">
+    <div class="topDiv">
+        <Breadcrumb Style="margin-bottom: 20px !important;">
+            <BreadcrumbItem Href="/Admin/Index">主页</BreadcrumbItem>
+            <BreadcrumbItem Href="/Admin/Article">文章列表</BreadcrumbItem>
+            <BreadcrumbItem>创建文章</BreadcrumbItem>
+        </Breadcrumb>
+        <Button class="button" @onclick="CreateArticle">发布</Button>
+    </div>
+    <div class="firstDiv">
+        <input @bind="titleValue" />
+    </div>
+    <div id="test-editor">
+        <textarea id="test-editor" style="display: none;">### Hello Editor.md !</textarea>
+    </div>
+    <div class="RadioButton">
+        <span style="margin-right:8px">分类:</span>
+        <RadioGroup @bind-Value="typeValue" ButtonStyle="@RadioButtonStyle.Solid">
+            @foreach (var item in types)
+            {
+                <Radio RadioButton Value="item.Id">@item.Name</Radio>
+            }
+        </RadioGroup>
+        @if (types.Count <= 0 || types == null)
+        {
+            <span>暂无分类</span>
+        }
+    </div>
+    <div class="TagDiv">
+        <span style="margin-right:8px">标签:</span>
+        @{
+            if (options.Count > 0)
+            {
+                var length = options.Count;
+                @for (var i = 1; i <= length; i++)
+                {
+                    var index = i;
+                    <Tag Checkable CheckedChanged="()=> CheckedChange(options[index-1])">@options[index - 1].Name</Tag>
+                }
+            }
+
+            if (tags != null)
+            {
+                @foreach (var item in tags)
+                {
+                    <Tag @key="item" Closable OnClose="()=>tags.Remove(item)">@item</Tag>
+                }
+            }
+
+
+            @if (inputVisible)
+            {
+                <Input Style="width: 78px" @bind-Value="tagValue" OnBlur="HandleInputConfirm" OnPressEnter="HandleInputConfirm" AutoFocus />
+            }
+            else
+            {
+                <Tag Class="site-tag-plus" OnClick="@(() => inputVisible = !inputVisible)">
+                    <Icon Type="plus" Style="position:relative;top:-3px;" />New Tag
+                </Tag>
+            }
+        }
+    </div>
+    <div class="imageDiv">
+        <div class="innerDiv">
+            <InputFile id="inputFile" OnChange="@LoadFiles" multiple style="display:none" />
+            <div class="container-Div">
+                <div class="imgDiv"></div>
+                <div class="context-p">
+                    <a @onclick="InputFileClick">
+                        <h3 style="font-size: 16px;font-weight:700;">BlogUI文章展示预览点击上传封面</h3>
+                        <p class="p">很久之前就想写一套二次元主题，之前的Memory其实初期是有二次元的影子的，但后来还是把这种风格砍了，于是就有了重写一款完全二次元风格的主题。在这样的背景下，这款主题——Giligili就诞生了。 不得不说，写主题真的是一件非常累人的事情，不过在这过程也学到了不少。从刚开始写Memory的一脸懵逼到 […]</p>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <Spin Indicator=antIcon Spinning=loading />
+</div>
+<style>
+    .site-tag-plus {
+        background: #fff;
+        border-style: dashed;
+    }
+</style>
+
+@code {
+    #region 初始化参数
+    private string titleValue;
+
+    //标签
+    private string tagValue;
+    private List<string> tags = new List<string>();
+    private List<TagDto> options;
+    private bool inputVisible = false;
+
+    //分类
+    private int typeValue;
+    private List<UfoBlog.Domain.Model.Article.Category> types;
+
+    //图片
+    private const string url = "https://shawnzeng.com/wp-content/themes/Giligili/img/default_bg.jpg";
+    private string imageUrl = "";
+
+    //加载
+    private bool loading = false;
+    RenderFragment antIcon =@<Icon Type="loading" Theme="outline" Style="font-size: 24px" Spin />;
+#endregion
+}

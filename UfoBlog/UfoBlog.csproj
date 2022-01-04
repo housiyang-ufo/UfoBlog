@@ -1,0 +1,56 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <UserSecretsId>a09faba3-e93a-4f06-8726-d9e7650d473d</UserSecretsId>
+    <DockerDefaultTargetOS>Windows</DockerDefaultTargetOS>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Data\Dto\**" />
+    <Compile Remove="Data\Mapper\**" />
+    <Compile Remove="Data\Model\**" />
+    <Content Remove="Data\Dto\**" />
+    <Content Remove="Data\Mapper\**" />
+    <Content Remove="Data\Model\**" />
+    <EmbeddedResource Remove="Data\Dto\**" />
+    <EmbeddedResource Remove="Data\Mapper\**" />
+    <EmbeddedResource Remove="Data\Model\**" />
+    <None Remove="Data\Dto\**" />
+    <None Remove="Data\Mapper\**" />
+    <None Remove="Data\Model\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Common\ModelBuilderExtensions.cs" />
+    <Compile Remove="Data\BlogContext.cs" />
+    <Compile Remove="Data\Request.cs" />
+    <Compile Remove="Pages\BackStage\Article\index.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AntDesign" Version="0.10.2" />
+    <PackageReference Include="CommonMark.NET" Version="0.15.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="5.0.12" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.12">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.10.14" />
+    <PackageReference Include="Microsoft.Web.LibraryManager.Build" Version="2.1.113" />
+    <PackageReference Include="Nancy" Version="2.0.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="Refit.HttpClientFactory" Version="6.1.15" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\css\images\" />
+    <Folder Include="wwwroot\images\" />
+    <Folder Include="wwwroot\upload\image\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\UfoBlog.Domain\UfoBlog.Domain.csproj" />
+  </ItemGroup>
+
+</Project>

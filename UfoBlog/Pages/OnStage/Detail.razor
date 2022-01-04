@@ -1,0 +1,25 @@
+﻿@page "/Detail/{Index}"
+@using AutoMapper;
+@using UfoBlog.Domain.Model;
+@inject IJSRuntime _js;
+@inject IMapper _mapper;
+@inject IDbContextFactory<BlogContext> _dbFactory;
+
+<div class="project">
+    <div class="article">
+        <h3>@data.Title</h3>
+        <div id="test-markdown-view" style="padding:0 !important;">
+            <!-- Server-side output Markdown text -->
+            <textarea style="display:none;">### Hello world!</textarea>
+        </div>
+    </div>
+    
+</div>
+<div class="message" id="message"></div>
+
+@code {
+    [Parameter]
+    public string Index { get; set; }
+
+    private UfoBlog.Domain.Model.Article.Article data = new Domain.Model.Article.Article();
+}

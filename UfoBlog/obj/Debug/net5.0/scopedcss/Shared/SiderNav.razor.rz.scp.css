@@ -1,0 +1,34 @@
+.div-container[b-9dywml7vva] {
+    height: 100%;
+    display: flex;
+    padding: 16px 24px 24px 0;
+    padding-bottom: 0px;
+}
+
+    .div-container .sidebar[b-9dywml7vva] {
+        display: flex;
+        padding: 40px 16px;
+        flex-direction: column;
+        align-items: center;
+        position: sticky;
+        position: -webkit-sticky;
+        top: 16px;
+    }
+
+.link[b-9dywml7vva] {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    font-size: 18px !important;
+    border-radius: 50%;
+    margin: 16px 0;
+    transition: 0.2s;
+}
+
+a[b-9dywml7vva] {
+    outline: none;
+    text-decoration: none;
+    color: #222;
+}

@@ -1,0 +1,24 @@
+﻿@inject NavigationManager _navigationManager;
+
+<p>@Message</p>
+
+@code {
+    [Parameter]
+    public string TypeStr { get; set; }
+
+    public string Message { get; set; } = "您无权限访问此路径!";
+
+    protected override void OnInitialized()
+    {
+        switch (TypeStr)
+        {
+            case "1":
+                Message = "您无权限访问此路径!";
+                break;
+            case "2":
+                Message = "找不到此地址 404!";
+                break;
+        }
+}
+
+}

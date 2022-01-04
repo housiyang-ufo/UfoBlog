@@ -1,0 +1,50 @@
+{
+  "version": "1.0",
+  "defaultProvider": "cdnjs",
+  "libraries": [
+    {
+      "provider": "filesystem",
+      "library": "Pages/BackStage/Article/",
+      "destination": "wwwroot/js/",
+      "files": [
+        "Create.razor.js"
+      ]
+    },
+    {
+      "provider": "filesystem",
+      "library": "Shared/",
+      "destination": "wwwroot/js/",
+      "files": [
+        "BackLayout.razor.js"
+      ]
+    },
+    {
+      "provider": "filesystem",
+      "library": "Pages/",
+      "destination": "wwwroot/js/",
+      "files": [
+        "Index.razor.js"
+      ]
+    },
+    {
+      "provider": "filesystem",
+      "library": "Pages/BackStage/Other/",
+      "destination": "wwwroot/js/",
+      "files": [
+        "DynamicMan.razor.js"
+      ]
+    },
+    {
+      "provider": "filesystem",
+      "library": "Pages/OnStage/",
+      "destination": "wwwroot/js/",
+      "files": [
+        "Detail.razor.js"
+      ]
+    }
+    //{
+    //  "library": "ant-design-blazor@0.4.1",
+    //  "destination": "wwwroot/ant-design-blazor/"
+    //}
+  ]
+}

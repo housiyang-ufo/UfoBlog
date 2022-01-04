@@ -1,0 +1,28 @@
+.modelDiv[b-piaw6fpzea] {
+    display: flex;
+    flex-direction: column;
+}
+    .modelDiv .img[b-piaw6fpzea] {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        margin-top:5px;
+        max-height:100px;
+    }
+        .modelDiv .img[b-piaw6fpzea]  img {
+            height:100px;
+            width:100px;
+        }
+
+.containerDiv[b-piaw6fpzea] {
+    width: 100%;
+    height: 100%;
+    background-color: #fff;
+}
+
+    .containerDiv .topDiv[b-piaw6fpzea] {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;     
+    }
+

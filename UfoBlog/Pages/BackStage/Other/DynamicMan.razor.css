@@ -1,0 +1,28 @@
+﻿.modelDiv {
+    display: flex;
+    flex-direction: column;
+}
+    .modelDiv .img {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        margin-top:5px;
+        max-height:100px;
+    }
+        .modelDiv .img ::deep img {
+            height:100px;
+            width:100px;
+        }
+
+.containerDiv {
+    width: 100%;
+    height: 100%;
+    background-color: #fff;
+}
+
+    .containerDiv .topDiv {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;     
+    }
+

@@ -1,0 +1,49 @@
+﻿@page "/Admin/Tag";
+@layout BackLayout;
+
+@using AutoMapper;
+@using UfoBlog.Domain.Model;
+@using UfoBlog.Domain.Dto.Article;
+@inject IMapper _mapper;
+@inject ModalService _modalService;
+@inject NotificationService _notice;
+@inject IDbContextFactory<BlogContext> _dbFactory;
+
+<div class="containerDiv">
+    <div class="topDiv">
+        <Breadcrumb Style="margin-bottom: 20px !important;">
+            <BreadcrumbItem Href="/Admin/Index">主页</BreadcrumbItem>
+            <BreadcrumbItem>标签列表</BreadcrumbItem>
+        </Breadcrumb>
+    </div>
+
+    <Table @ref="table"
+           TItem="TagDto"
+           DataSource="@tagDtos"
+           Total="_total"
+           @bind-PageIndex="_pageIndex"
+           @bind-PageSize="_pageSize"
+           OnPageIndexChange="PageIndexChanged">
+        <Selection Key="@(context.Id.ToString())" />
+        <Column Title="名称" @bind-Field="@context.Name" Width="200" Ellipsis />
+        <Column Title="数量" @bind-Field="@context.Number" Align="ColumnAlign.Center" />
+        <Column Title="创建时间" @bind-Field="@context.CreateTime" Format="yyyy-MM-dd" />
+        <ActionColumn Title="操作">
+            <Space>
+                <SpaceItem><Button OnClick="()=>Edit(context.Id)">编辑</Button></SpaceItem>
+                <SpaceItem><Button Danger OnClick="()=>ShowConfirm(context.Id)">删除</Button></SpaceItem>
+            </Space>
+        </ActionColumn>
+    </Table>
+</div>
+
+@code {
+    int _pageIndex = 1;
+    int _pageSize = 10;
+    int _total = 0;
+
+    List<TagDto> tagDtos;
+    ITable table;
+
+    RenderFragment icon =@<Icon Type="exclamation-circle" Theme="outline"></Icon>;
+}

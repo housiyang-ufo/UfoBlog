@@ -1,0 +1,38 @@
+﻿@using Microsoft.Extensions.Configuration;
+@using UfoBlog.Domain.Model;
+@inject IconService iconService;
+@inject NotificationService _notice;
+@inject IConfiguration _configuration;
+@inject NavigationManager NavigationManager;
+@inject IDbContextFactory<BlogContext> _dbFactory;
+@inject AuthenticationStateProvider _authenticationStateProvider;
+
+@using System.IO;
+
+@*导航栏*@
+<div class="header">
+    <div class="div-left">
+        <span class="div-icon"></span>
+        <p class="div-p" @onclick='()=> { NavigationManager.NavigateTo("/"); }'>UFO233</p>
+        <div class="div-input">
+            <input class="input" type="text" placeholder="Search">
+            <Icon Type="search" Theme="outline" Style="font-size:20px;" />
+        </div>
+    </div>
+    <div class="div-right">
+        <IconFont Type="icon-dark" Class="IconFontNav" @onclick="GetNotification" />
+        <IconFont Type="icon-bell-l" Class="IconFontNav" @onclick="GetNotification" />
+        <Divider Type="DirectionVHType.Vertical" Style="height:32px;border-left:2px solid #ddd;" />
+        <Tooltip Title="@user.UserName" Placement="Placement.Bottom">
+            <div class="User" @onclick="NavigateToLogin">
+                <Avatar Src="@user.ImageUrl" Size="32" />
+                <span class="UserName">@user.UserName</span>
+            </div>
+        </Tooltip>
+
+    </div>
+</div>
+
+@code {
+    private Admin user;
+}
