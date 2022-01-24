@@ -1,0 +1,21 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "3a3c3194-1172-48cf-9f8e-6b955a4b778d": {
+      "ProjectGuid": "3a3c3194-1172-48cf-9f8e-6b955a4b778d",
+      "DisplayName": "UfoBlog.Domain",
+      "ColorIndex": 0
+    },
+    "cde82ef6-736a-4794-a128-a96946ec60b3": {
+      "ProjectGuid": "cde82ef6-736a-4794-a128-a96946ec60b3",
+      "DisplayName": "UfoBlog",
+      "ColorIndex": 1
+    },
+    "a2fe74e1-b743-11d0-ae1a-00a0c90fffc3": {
+      "ProjectGuid": "a2fe74e1-b743-11d0-ae1a-00a0c90fffc3",
+      "DisplayName": "杂项文件",
+      "ColorIndex": -1
+    }
+  },
+  "NextColorIndex": 2
+}

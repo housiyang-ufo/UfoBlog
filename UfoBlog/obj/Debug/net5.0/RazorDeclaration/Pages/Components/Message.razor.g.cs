@@ -91,7 +91,7 @@ using AntDesign;
 #nullable disable
 #nullable restore
 #line 12 "C:\Users\ufo233\OneDrive\Documents\UfoBlog\UfoBlog\_Imports.razor"
-using UfoBlog.Data;
+using UfoBlog.Domain;
 
 #line default
 #line hidden
@@ -153,7 +153,7 @@ using Microsoft.Extensions.Configuration;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 35 "C:\Users\ufo233\OneDrive\Documents\UfoBlog\UfoBlog\Pages\Components\Message.razor"
+#line 22 "C:\Users\ufo233\OneDrive\Documents\UfoBlog\UfoBlog\Pages\Components\Message.razor"
        
     private List<TagDto> tagDto = new List<TagDto>();
     private WordString wordStr = new WordString();

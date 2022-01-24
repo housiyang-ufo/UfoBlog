@@ -1,25 +1,47 @@
 ﻿@page "/Detail/{Index}"
 @using AutoMapper;
 @using UfoBlog.Domain.Model;
+@using UfoBlog.Domain.Interface;
+@using UfoBlog.Domain.Dto.Article;
 @inject IJSRuntime _js;
 @inject IMapper _mapper;
+@inject ICommonService _commonService;
 @inject IDbContextFactory<BlogContext> _dbFactory;
 
 <div class="project">
     <div class="article">
         <h3>@data.Title</h3>
+        <div class="userInfoDiv">
+            <Avatar Src="@user.ImageUrl" Size="48" Style="@builder.GetSection("Index")["avatar"]" />
+            <div class="span">
+                <span class="name">@user.UserName</span>
+                <span class="time">@_commonService.GetIntervalTime(data.CreateTime) · 阅读 @data.ViewNum · 评论 @data.Comments · 点赞 @data.LikeIt</span>
+            </div>
+            <div class="DynamicImg">
+                <span class="font">10000</span>
+            </div>
+        </div>
         <div id="test-markdown-view" style="padding:0 !important;">
             <!-- Server-side output Markdown text -->
             <textarea style="display:none;">### Hello world!</textarea>
         </div>
+        <div class="footer">
+            <span>分类：</span><Button OnClick="() => { }">@data.TypeDto.Name</Button>
+            <span class="span">标签：</span>
+            @foreach (var item in data.Tag.Split(","))
+            {
+                <Button OnClick="() => { }" Style="margin-right:8px;">@item</Button>
+            }
+        </div>
     </div>
-    
+
 </div>
 <div class="message" id="message"></div>
 
 @code {
     [Parameter]
     public string Index { get; set; }
+    private Admin user;
 
-    private UfoBlog.Domain.Model.Article.Article data = new Domain.Model.Article.Article();
+    private ArticleDto data = new ArticleDto();
 }

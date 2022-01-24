@@ -18,7 +18,6 @@ C:\Users\ufo233\OneDrive\Documents\UfoBlog\UfoBlog.Domain\bin\Debug\net5.0\UfoBl
 C:\Users\ufo233\OneDrive\Documents\UfoBlog\UfoBlog.Domain\bin\Debug\net5.0\UfoBlog.Domain.dll
 C:\Users\ufo233\OneDrive\Documents\UfoBlog\UfoBlog.Domain\bin\Debug\net5.0\ref\UfoBlog.Domain.dll
 C:\Users\ufo233\OneDrive\Documents\UfoBlog\UfoBlog.Domain\bin\Debug\net5.0\UfoBlog.Domain.pdb
-C:\Users\ufo233\OneDrive\Documents\UfoBlog\UfoBlog.Domain\obj\Debug\net5.0\UfoBlog.Domain.csproj.AssemblyReference.cache
 C:\Users\ufo233\OneDrive\Documents\UfoBlog\UfoBlog.Domain\obj\Debug\net5.0\UfoBlog.Domain.GeneratedMSBuildEditorConfig.editorconfig
 C:\Users\ufo233\OneDrive\Documents\UfoBlog\UfoBlog.Domain\obj\Debug\net5.0\UfoBlog.Domain.AssemblyInfoInputs.cache
 C:\Users\ufo233\OneDrive\Documents\UfoBlog\UfoBlog.Domain\obj\Debug\net5.0\UfoBlog.Domain.AssemblyInfo.cs
@@ -28,3 +27,4 @@ C:\Users\ufo233\OneDrive\Documents\UfoBlog\UfoBlog.Domain\obj\Debug\net5.0\ref\U
 C:\Users\ufo233\OneDrive\Documents\UfoBlog\UfoBlog.Domain\obj\Debug\net5.0\UfoBlog.Domain.pdb
 C:\Users\ufo233\OneDrive\Documents\UfoBlog\UfoBlog.Domain\obj\Debug\net5.0\UfoBlog.Domain.genruntimeconfig.cache
 C:\Users\40157\OneDrive\Documents\UfoBlog\UfoBlog.Domain\obj\Debug\net5.0\UfoBlog.Domain.csproj.AssemblyReference.cache
+C:\Users\ufo233\OneDrive\Documents\UfoBlog\UfoBlog.Domain\obj\Debug\net5.0\UfoBlog.Domain.csproj.AssemblyReference.cache

@@ -49,6 +49,7 @@ namespace UfoBlog.Controllers
                     new Claim(ClaimTypes.Sid, user.Uno),
                     new Claim(ClaimTypes.Name,user.UserName),
                     new Claim(ClaimTypes.Uri, user.ImageUrl),
+                    new Claim(ClaimTypes.Role, "Administrator")
                     };
 
                 props = new AuthenticationProperties

@@ -91,7 +91,7 @@ using AntDesign;
 #nullable disable
 #nullable restore
 #line 12 "C:\Users\ufo233\OneDrive\Documents\UfoBlog\UfoBlog\_Imports.razor"
-using UfoBlog.Data;
+using UfoBlog.Domain;
 
 #line default
 #line hidden
@@ -119,7 +119,7 @@ using Microsoft.AspNetCore.Http;
 #nullable disable
 #nullable restore
 #line 3 "C:\Users\ufo233\OneDrive\Documents\UfoBlog\UfoBlog\Pages\BackStage\Index.razor"
-           [Authorize]
+           [Authorize(Roles = "Administrator")]
 
 #line default
 #line hidden

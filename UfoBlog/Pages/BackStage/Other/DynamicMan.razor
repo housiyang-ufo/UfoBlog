@@ -9,6 +9,7 @@
 @inject IMapper _mapper;
 @inject IConfiguration  conf;
 @inject IconService iconService;
+@inject ModalService _modalService;
 @inject NotificationService _notice;
 @inject IConfiguration _configuration;
 @inject IDbContextFactory<BlogContext> _dbFactory;
@@ -37,7 +38,7 @@
         <ActionColumn Title="操作">
             <Space>
                 <SpaceItem><Button OnClick="()=>Edit(context.Id)">编辑</Button></SpaceItem>
-                <SpaceItem><Button Danger>删除</Button></SpaceItem>
+                <SpaceItem><Button Danger OnClick="()=> ShowConfirm(context.Id)">删除</Button></SpaceItem>
             </Space>
         </ActionColumn>
     </Table>

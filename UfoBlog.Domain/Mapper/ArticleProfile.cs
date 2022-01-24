@@ -14,7 +14,8 @@ namespace UfoBlog.Domain.Mapper
 
             CreateMap<Tag, TagDto>().ReverseMap();
 
-            CreateMap<DynamicMan, DynamicManDto>().ReverseMap();
+            CreateMap<DynamicMan, DynamicManDto>()
+                .ForMember(dest => dest.IsLikeIt, opt => opt.MapFrom(o => false)).ReverseMap();
         }
     }
 }

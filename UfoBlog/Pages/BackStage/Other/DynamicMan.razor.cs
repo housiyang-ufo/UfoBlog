@@ -83,6 +83,54 @@ namespace UfoBlog.Pages.BackStage.Other
             //编辑
         }
 
+        #region 说说删除
+
+        /// <summary>
+        /// 删除确认框
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        private async Task ShowConfirm(int id)
+        {
+            await _modalService.ConfirmAsync(new ConfirmOptions()
+            {
+                Title = "是否要删除这条说说?",
+                Icon = icon,
+                Content = "想删就删吧 இ௰இ!",
+                OnOk = async (e) => await Delete(e, id),
+                OnCancel = onCancel
+            });
+        }
+
+        /// <summary>
+        /// 删除
+        /// </summary>
+        /// <param name="id"></param>
+        private async Task Delete(ModalClosingEventArgs e, int id)
+        {
+            using var context = _dbFactory.CreateDbContext();
+
+            var data = await context.DynamicMan.FirstOrDefaultAsync(x => !x.IsDelete && x.Id == id);
+
+            if (data != null)
+            {
+                data.IsDelete = true;
+                context.DynamicMan.Update(data);
+
+                await context.SaveChangesAsync();
+
+                await QueryArticleList(_pageIndex, _pageSize);
+                Task.Run(async () => await _notice.Success(new NotificationConfig { Message = "成功提示", Description = "说说删除成功！" }));
+            }
+        }
+
+        Func<ModalClosingEventArgs, Task> onCancel = (e) =>
+        {
+            return Task.CompletedTask;
+        };
+
+        #endregion
+
         #region 对话框事件
 
         /// <summary>

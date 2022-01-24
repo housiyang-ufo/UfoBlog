@@ -1,16 +1,17 @@
-using Microsoft.AspNetCore.Authentication.Cookies;
+using UfoBlog.Domain.Common;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
-using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using Refit;
-using System;
-using System.Reflection;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using UfoBlog.Domain.Model;
-using UfoBlog.Data.Interface;
+using Microsoft.EntityFrameworkCore;
+using UfoBlog.Domain.Extensions;
+using UfoBlog.Domain.Interface;
+using UfoBlog.Application.Service;
+using System.Reflection;
 
 namespace UfoBlog
 {
@@ -29,9 +30,6 @@ namespace UfoBlog
             services.AddServerSideBlazor();
 
             services.AddAntDesign();
-
-            services.AddDbContextFactory<BlogContext>(opt => opt.UseSqlite(Configuration.GetConnectionString("Default")));
-
             services
                 .AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                 .AddCookie(options =>
@@ -41,13 +39,11 @@ namespace UfoBlog
                 });
 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            
+            //services.AddSingleton<ICommonService, CommonService>();
+            //services.AddTransient<IArticleService, ArticleService>();
 
-            //Refit
-            services
-                .AddRefitClient<IAccountClient>().ConfigureHttpClient(options =>
-            {
-                options.BaseAddress = new Uri(Configuration.GetValue(typeof(String), "URLS").ToString());
-            });
+            services.BatchInjection();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -70,6 +66,7 @@ namespace UfoBlog
             app.UseAuthentication();
             app.UseAuthorization();
 
+            app.UseMiddleware<RealIpMiddleware>();
 
             app.UseEndpoints(endpoints =>
             {

@@ -1,9 +1,11 @@
 ﻿@page "/Admin/Article";
 
-@using AutoMapper; 
+@using AutoMapper;
 @using UfoBlog.Domain.Model;
 @layout BackLayout;
 @inject IMapper _mapper;
+@inject ModalService _modalService;
+@inject NotificationService _notice;
 @inject NavigationManager NavigationManager;
 @inject IDbContextFactory<BlogContext> _dbFactory;
 
@@ -27,10 +29,10 @@
            @bind-SelectedRows="selectedRows"
            OnPageIndexChange="PageIndexChanged">
         <Selection Key="@(context.Id.ToString())" />
-        <Column Title="标题" @bind-Field="@context.Title" Width="400" Ellipsis >
+        <Column Title="标题" @bind-Field="@context.Title" Width="400" Ellipsis>
             <a @onclick='()=> NavigationManager.NavigateTo($"/Detail/{context.Id}")'>@context.Title</a>
         </Column>
-        <Column Title="类型" @bind-Field="@context.TypeName" />
+        <Column Title="类型" @bind-Field="@context.Type">@context.TypeDto.Name</Column>
         <Column Title="标签" Field="@context.Tag" Width="300" Ellipsis>
             @{
                 if (!string.IsNullOrWhiteSpace(context.Tag))
@@ -49,7 +51,7 @@
         <ActionColumn Title="操作">
             <Space>
                 <SpaceItem><Button OnClick="()=>Edit(context.Id)">编辑</Button></SpaceItem>
-                <SpaceItem><Button Danger OnClick="()=>Delete(context.Id)">删除</Button></SpaceItem>
+                <SpaceItem><Button Danger OnClick="()=>ShowConfirm(context.Id)">删除</Button></SpaceItem>
             </Space>
         </ActionColumn>
     </Table>
@@ -69,7 +71,7 @@
 
     string[] color = { "#f50", "#2db7f5", "#87d068", "#108ee9", "HotPink", "DarkRed", "rgb(143, 201, 146)", "rgb(105, 58, 236)" };
 
+    RenderFragment icon =@<Icon Type="exclamation-circle" Theme="outline"></Icon>;
+
     #endregion
-
-
 }

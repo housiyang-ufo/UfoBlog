@@ -91,7 +91,7 @@ using AntDesign;
 #nullable disable
 #nullable restore
 #line 12 "C:\Users\ufo233\OneDrive\Documents\UfoBlog\UfoBlog\_Imports.razor"
-using UfoBlog.Data;
+using UfoBlog.Domain;
 
 #line default
 #line hidden
@@ -119,7 +119,7 @@ using System.ComponentModel;
 #nullable disable
 #nullable restore
 #line 4 "C:\Users\ufo233\OneDrive\Documents\UfoBlog\UfoBlog\Pages\Components\Login.razor"
-using UfoBlog.Data.Interface;
+using UfoBlog.Domain.Interface;
 
 #line default
 #line hidden
@@ -179,7 +179,6 @@ using System.ComponentModel.DataAnnotations;
         [global::Microsoft.AspNetCore.Components.InjectAttribute] private IHttpContextAccessor _context { get; set; }
         [global::Microsoft.AspNetCore.Components.InjectAttribute] private NavigationManager NavigationManager { get; set; }
         [global::Microsoft.AspNetCore.Components.InjectAttribute] private NotificationService _notice { get; set; }
-        [global::Microsoft.AspNetCore.Components.InjectAttribute] private IAccountClient _client { get; set; }
     }
 }
 #pragma warning restore 1591

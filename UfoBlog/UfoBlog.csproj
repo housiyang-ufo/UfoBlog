@@ -40,7 +40,6 @@
     <PackageReference Include="Microsoft.Web.LibraryManager.Build" Version="2.1.113" />
     <PackageReference Include="Nancy" Version="2.0.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
-    <PackageReference Include="Refit.HttpClientFactory" Version="6.1.15" />
   </ItemGroup>
 
   <ItemGroup>
@@ -50,6 +49,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\UfoBlog.Application\UfoBlog.Application.csproj" />
     <ProjectReference Include="..\UfoBlog.Domain\UfoBlog.Domain.csproj" />
   </ItemGroup>
 

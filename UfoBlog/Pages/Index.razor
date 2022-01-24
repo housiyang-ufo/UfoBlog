@@ -2,13 +2,17 @@
 @using AutoMapper;
 @using UfoBlog.Domain.Model;
 @using System.Globalization;
+@using UfoBlog.Domain.Interface;
+@using Microsoft.AspNetCore.Http;
 @using UfoBlog.Domain.Dto.Article;
-@using UfoBlog.Common.Authorization;
 @using Microsoft.Extensions.Configuration;
 @inject IJSRuntime _js;
 @inject IMapper _mapper;
 @inject IconService iconService;
+@inject ICommonService _commonService;
 @inject IConfiguration _configuration;
+@inject IArticleService _articleService;
+@inject IHttpContextAccessor _httpContext;
 @inject IDbContextFactory<BlogContext> _dbFactory;
 
 
@@ -55,7 +59,7 @@
                         <Avatar Src="@user.ImageUrl" Size="48" Style="@builder.GetSection("Index")["avatar"]" />
                         <div class="span">
                             <span class="name">@user.UserName</span>
-                            <span class="time">@GetIntervalTime(sayList[index].CreateTime)</span>
+                            <span class="time">@_commonService.GetIntervalTime(sayList[index].CreateTime)</span>
                         </div>
                         <div class="DynamicImg">
                             <span class="font">10000</span>
@@ -67,7 +71,7 @@
                     <div class="options">
                         <div class="icon"><IconFont Type="icon-ico_yueduliang" Class="IconFontNav" Style="@builder.GetSection("Index")["iconStyle"]" /><span class="fontDiv">@sayList[index].ViewNum</span></div>
                         <div class="icon"><IconFont Type="icon-31pinglun" Class="IconFontNav" Style="@builder.GetSection("Index")["iconStyle"]" /><span class="fontDiv">0</span></div>
-                        <div class="icon"><IconFont Type="icon-dianzan" Class="IconFontNav" Style="@(builder.GetSection("Index")["iconStyle"] + builder.GetSection("Index")["iconStyleTop"])" /><span class="fontDiv">@sayList[index].LikeIt</span></div>
+                        <div class="icon"><IconFont Type='@(sayList[index].IsLikeIt ? "icon-dianzanTrue-copy":"icon-dianzan" )' Class="IconFontNav" Style="@(builder.GetSection("Index")["iconStyle"] + builder.GetSection("Index")["iconStyleTop"])" OnClick="()=>LikeDynamicManHandle(sayList[index].Id)" /><span class="fontDiv">@sayList[index].LikeIt</span></div>
                     </div>
                 </div>
             }
@@ -76,7 +80,6 @@
 
 </div>
 <UfoBlog.Pages.Components.Message></UfoBlog.Pages.Components.Message>
-
 
 @code{
 

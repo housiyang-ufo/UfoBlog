@@ -91,7 +91,7 @@ using AntDesign;
 #nullable disable
 #nullable restore
 #line 12 "C:\Users\ufo233\OneDrive\Documents\UfoBlog\UfoBlog\_Imports.razor"
-using UfoBlog.Data;
+using UfoBlog.Domain;
 
 #line default
 #line hidden
@@ -124,6 +124,20 @@ using UfoBlog.Domain.Model;
 #line default
 #line hidden
 #nullable disable
+#nullable restore
+#line 4 "C:\Users\ufo233\OneDrive\Documents\UfoBlog\UfoBlog\Pages\OnStage\Detail.razor"
+using UfoBlog.Domain.Interface;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 5 "C:\Users\ufo233\OneDrive\Documents\UfoBlog\UfoBlog\Pages\OnStage\Detail.razor"
+using UfoBlog.Domain.Dto.Article;
+
+#line default
+#line hidden
+#nullable disable
     [Microsoft.AspNetCore.Components.RouteAttribute("/Detail/{Index}")]
     public partial class Detail : Microsoft.AspNetCore.Components.ComponentBase
     {
@@ -133,17 +147,19 @@ using UfoBlog.Domain.Model;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 20 "C:\Users\ufo233\OneDrive\Documents\UfoBlog\UfoBlog\Pages\OnStage\Detail.razor"
+#line 41 "C:\Users\ufo233\OneDrive\Documents\UfoBlog\UfoBlog\Pages\OnStage\Detail.razor"
        
     [Parameter]
     public string Index { get; set; }
+    private Admin user;
 
-    private UfoBlog.Domain.Model.Article.Article data = new Domain.Model.Article.Article();
+    private ArticleDto data = new ArticleDto();
 
 #line default
 #line hidden
 #nullable disable
         [global::Microsoft.AspNetCore.Components.InjectAttribute] private IDbContextFactory<BlogContext> _dbFactory { get; set; }
+        [global::Microsoft.AspNetCore.Components.InjectAttribute] private ICommonService _commonService { get; set; }
         [global::Microsoft.AspNetCore.Components.InjectAttribute] private IMapper _mapper { get; set; }
         [global::Microsoft.AspNetCore.Components.InjectAttribute] private IJSRuntime _js { get; set; }
     }

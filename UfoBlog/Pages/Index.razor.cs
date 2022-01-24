@@ -1,18 +1,20 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Microsoft.JSInterop;
-using System;
+﻿using System;
 using System.IO;
 using System.Linq;
-using UfoBlog.Domain.Dto.Article;
+using Microsoft.JSInterop;
 using System.Threading.Tasks;
+using UfoBlog.Domain.Dto.Article;
+using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+
 
 namespace UfoBlog.Pages
 {
     public partial class Index
     {
-        private IJSObjectReference module;
         private IConfiguration builder;
+        private IJSObjectReference module;
 
         #region 生命周期方法
 
@@ -20,23 +22,28 @@ namespace UfoBlog.Pages
         /// 生命周期事件-渲染前
         /// </summary>
         /// <returns></returns>
-        protected override async Task OnInitializedAsync()
+        protected override void OnInitialized()
         {
-            UfoBlog.Domain.Dto.Article.ArticleDto aaa = _mapper.Map<UfoBlog.Domain.Dto.Article.ArticleDto>(new Domain.Model.Article.Article { Id = 1 } );
-
             //加载配置文件
-            builder = new ConfigurationBuilder()
-            .SetBasePath(Directory.GetCurrentDirectory() + "/wwwroot")
-            .AddJsonFile("appsettings.json").Build();
+            builder = _commonService.LoadJsonFile("/wwwroot");
 
             //初始化数据
             using var context = _dbFactory.CreateDbContext();
             user = context.Admin.AsNoTracking().First();
-            sayList = await context.DynamicMan.AsNoTracking().Where(x => !x.IsDelete).OrderByDescending(x => x.CreateTime).Select(x=> _mapper.Map<DynamicManDto>(x)).ToListAsync();
+            sayList = context.DynamicMan.AsNoTracking() //说说列表
+                .Where(x => !x.IsDelete).OrderByDescending(x => x.CreateTime).AsEnumerable()
+                .GroupJoin(context.LikeIt.Where(x => !x.IsDelete && x.Type == 2).ToList(), a => a.Id, b => b.TypeId,
+                    (a, b) => new { SayIt = a, LikeIt = b })
+                    .SelectMany(x => x.LikeIt.DefaultIfEmpty(), (a, b) =>
+                    {
+                        var data = _mapper.Map<DynamicManDto>(a.SayIt);
+                        if (b != null) data.IsLikeIt = true;
+                        return data;
+                    }).ToList();
 
-            otherInfo.Number = context.DynamicMan.Where(x => !x.IsDelete)?.Count() ?? 0;
-            otherInfo.LikeIt = context.LikeIt.Where(x => x.Type == 2 && !x.IsDelete)?.Count() ?? 0;
-            otherInfo.Comments = 0;
+            otherInfo.Number = context.DynamicMan.Where(x => !x.IsDelete)?.Count() ?? 0;    //说说数量
+            otherInfo.LikeIt = context.LikeIt.Where(x => x.Type == 2 && !x.IsDelete)?.Count() ?? 0; //点赞数量
+            otherInfo.Comments = 0; //评论数量-未开通评论功能
         }
 
         /// <summary>
@@ -60,47 +67,41 @@ namespace UfoBlog.Pages
         #endregion
 
         /// <summary>
-        /// 相对时间转换 
+        /// 说说点赞处理
         /// </summary>
-        /// <param name="dynamicTime"></param>
+        /// <param name="id"></param>
+        /// <param name="sayList"></param>
         /// <returns></returns>
-        public string GetIntervalTime(DateTime dynamicTime)
+        private async Task LikeDynamicManHandle(int id)
         {
-            DateTime currentDate = DateTime.Now;
-            TimeSpan ts = currentDate - dynamicTime; 
-            int month = (currentDate.Year - dynamicTime.Year) * 12 + (currentDate.Month - dynamicTime.Month);  
-            string en; 
-            if (month >= 12)
-            {
-                int year = month / 12; 
-                en = year + "年前";
-            }
-            else if (month > 0)
-            {
-                en = month + "个月前";  
-            }
-            else if (ts.Days != 0)
-            {
-                en = ts.Days + "天前"; 
-            }
-            else if (ts.Hours != 0)
-            {
-                en = ts.Hours + "小时前";
-            }
-            else if (ts.Minutes != 0)
-            {
-                en = ts.Minutes + "分钟前";
-            }
-            else if (ts.Seconds != 0)
-            {
-                en = ts.Seconds + "秒前";
-            }
-            else
-            {
-                en = ts.Milliseconds + "毫秒前";
-            }
-            return en;
+            sayList = await _articleService.LikeDynamicManHandle(id, sayList);
         }
 
+        #region 阅读量处理
+
+        /// <summary>
+        /// 阅读量处理
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        private async Task ViewDynamicManHandle(int id) 
+        {
+            using var context = _dbFactory.CreateDbContext();
+
+            var ip = _httpContext.HttpContext.Connection.RemoteIpAddress.ToString();
+            var data = context.ViewNum.FirstOrDefault(x => x.Type == 2 && x.IP.Equals(ip));
+            
+            if (data == null)
+            {
+                var sayit = context.DynamicMan.FirstOrDefault(x => !x.IsDelete && x.Id == id);
+                sayit.ViewNum++;
+                context.DynamicMan.Update(sayit);
+
+                context.ViewNum.Add(new Domain.Model.Article.ViewNum { IP = ip, Type = 2, TypeId = id, IsDelete = false });
+                await context.SaveChangesAsync();
+            }
+        }
+
+        #endregion
     }
 }

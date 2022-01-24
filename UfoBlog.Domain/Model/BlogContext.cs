@@ -37,6 +37,11 @@ namespace UfoBlog.Domain.Model
         public DbSet<LikeIt> LikeIt { get; set; }
 
         /// <summary>
+        /// 阅读记录表
+        /// </summary>
+        public DbSet<ViewNum> ViewNum { get; set; }
+
+        /// <summary>
         /// 文章表
         /// </summary>
         public DbSet<Article.Article> Article { get; set; }

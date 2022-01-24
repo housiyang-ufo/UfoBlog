@@ -58,7 +58,7 @@ namespace UfoBlog.Pages.OnStage
                  .Skip(number * (index - 1)).Take(number).AsEnumerable()
                  .Join(context.Category.Where(x => !x.IsDelete).ToList(), a => a.Type, b => b.Id, (a, b) => {
                      var data = _mapper.Map<ArticleDto>(a);
-                     data.TypeName = b.Name;
+                     data.TypeDto = _mapper.Map<CategoryDto>(b);
                      return data;
                  })
                  .ToList();

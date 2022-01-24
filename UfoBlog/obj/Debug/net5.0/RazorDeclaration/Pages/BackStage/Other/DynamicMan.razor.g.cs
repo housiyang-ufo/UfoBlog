@@ -91,7 +91,7 @@ using AntDesign;
 #nullable disable
 #nullable restore
 #line 12 "C:\Users\ufo233\OneDrive\Documents\UfoBlog\UfoBlog\_Imports.razor"
-using UfoBlog.Data;
+using UfoBlog.Domain;
 
 #line default
 #line hidden
@@ -148,7 +148,7 @@ using Microsoft.Extensions.Configuration;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 89 "C:\Users\ufo233\OneDrive\Documents\UfoBlog\UfoBlog\Pages\BackStage\Other\DynamicMan.razor"
+#line 90 "C:\Users\ufo233\OneDrive\Documents\UfoBlog\UfoBlog\Pages\BackStage\Other\DynamicMan.razor"
        
     int _pageIndex = 1;
     int _pageSize = 10;
@@ -173,7 +173,7 @@ using Microsoft.Extensions.Configuration;
             __builder2.AddMarkupContent(0, "<Icon Type=\"exclamation-circle\" Theme=\"outline\" b-piaw6fpzea></Icon>");
         }
 #nullable restore
-#line 104 "C:\Users\ufo233\OneDrive\Documents\UfoBlog\UfoBlog\Pages\BackStage\Other\DynamicMan.razor"
+#line 105 "C:\Users\ufo233\OneDrive\Documents\UfoBlog\UfoBlog\Pages\BackStage\Other\DynamicMan.razor"
                                                                                  ;
 
 private bool _loading = false;
@@ -187,6 +187,7 @@ private InputFile inputFile;
         [global::Microsoft.AspNetCore.Components.InjectAttribute] private IDbContextFactory<BlogContext> _dbFactory { get; set; }
         [global::Microsoft.AspNetCore.Components.InjectAttribute] private IConfiguration _configuration { get; set; }
         [global::Microsoft.AspNetCore.Components.InjectAttribute] private NotificationService _notice { get; set; }
+        [global::Microsoft.AspNetCore.Components.InjectAttribute] private ModalService _modalService { get; set; }
         [global::Microsoft.AspNetCore.Components.InjectAttribute] private IconService iconService { get; set; }
         [global::Microsoft.AspNetCore.Components.InjectAttribute] private IConfiguration conf { get; set; }
         [global::Microsoft.AspNetCore.Components.InjectAttribute] private IMapper _mapper { get; set; }

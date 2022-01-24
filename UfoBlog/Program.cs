@@ -14,7 +14,9 @@ namespace UfoBlog
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
-                    webBuilder.UseSetting(WebHostDefaults.HostingStartupAssembliesKey, "UfoBlog.Domain");
+                    webBuilder.UseSetting(WebHostDefaults.HostingStartupAssembliesKey, "UfoBlog.Domain;UfoBlog.Application");
+                    //webBuilder.UseSetting(WebHostDefaults.HostingStartupAssembliesKey, "UfoBlog.Domain");
+
                     webBuilder.UseStartup<Startup>();
                 });
     }

@@ -1,6 +1,6 @@
 ﻿@page "/Admin/Index";
 @layout BackLayout;
-@attribute [Authorize]
+@attribute [Authorize(Roles = "Administrator")]
 @using Microsoft.AspNetCore.Http;
 
 @inject IHttpContextAccessor  _httpContext;

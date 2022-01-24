@@ -1,7 +1,4 @@
-﻿using System;
-using UfoBlog.Domain.Dto;
-
-namespace UfoBlog.Domain.Dto.Article
+﻿namespace UfoBlog.Domain.Dto.Article
 {
     public class ArticleDto : BaseModel
     {
@@ -50,8 +47,8 @@ namespace UfoBlog.Domain.Dto.Article
         public int ViewNum { get; set; }
 
         /// <summary>
-        /// 分类名称
+        /// 分类Dto
         /// </summary>
-        public string TypeName { get; set; }
+        public CategoryDto TypeDto { get; set; }
     }
 }

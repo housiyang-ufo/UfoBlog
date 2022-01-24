@@ -2,6 +2,9 @@
 using Nancy.Json;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.Extensions.DependencyInjection;
+using System.Reflection;
+using System.Linq;
 
 namespace UfoBlog.Domain.Common
 {
@@ -20,6 +23,40 @@ namespace UfoBlog.Domain.Common
             {
                 entity.SetTableName(entity.DisplayName());
             }
+        }
+
+        /// <summary>
+        /// 批量注入--服务自动注入
+        /// </summary>
+        /// <param name="services"></param>
+        /// <returns></returns>
+        public static IServiceCollection BatchInjection(this IServiceCollection services)
+        {
+            //获取service程序集列表
+            var assemblies = AppDomain.CurrentDomain.GetAssemblies().Where(x=>x.GetName().FullName.Contains("UfoBlog"));
+            
+            foreach (Assembly assembly in assemblies)
+            {
+                //获取程序集下所有类
+                Type[] types = assembly.GetTypes();
+                types.ToList().ForEach(t =>
+                {
+                    //非接口，非抽象类
+                    if (!t.IsInterface && !t.IsAbstract)
+                    {
+                        Type[] interfaces = t.GetInterfaces();
+                        //注入
+                        interfaces.ToList().ForEach(r =>
+                        {
+                            //跳过Refit注册（暂时没有其他方法）
+                            if (!r.FullName.Contains("IAccountClient"))
+                                services.AddTransient(r, t);
+                        });
+                    }
+                });
+            }
+
+            return services;
         }
 
         /// <summary>

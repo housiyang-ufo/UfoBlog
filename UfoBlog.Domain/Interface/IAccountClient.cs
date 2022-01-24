@@ -2,11 +2,11 @@
 using UfoBlog.Domain.Model;
 using System.Threading.Tasks;
 
-namespace UfoBlog.Data.Interface
+namespace UfoBlog.Domain.Interface
 {
     public interface IAccountClient
     {
         [Post("/api/Account/Login")]
-        Task<Request<string>> LoginAsync(string token);
+        Task<Request<string>> Login(string token);
     }
 }

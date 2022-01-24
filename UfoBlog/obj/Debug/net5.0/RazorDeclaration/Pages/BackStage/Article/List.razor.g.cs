@@ -91,7 +91,7 @@ using AntDesign;
 #nullable disable
 #nullable restore
 #line 12 "C:\Users\ufo233\OneDrive\Documents\UfoBlog\UfoBlog\_Imports.razor"
-using UfoBlog.Data;
+using UfoBlog.Domain;
 
 #line default
 #line hidden
@@ -125,7 +125,7 @@ using UfoBlog.Domain.Model;
 #line hidden
 #nullable disable
 #nullable restore
-#line 10 "C:\Users\ufo233\OneDrive\Documents\UfoBlog\UfoBlog\Pages\BackStage\Article\List.razor"
+#line 12 "C:\Users\ufo233\OneDrive\Documents\UfoBlog\UfoBlog\Pages\BackStage\Article\List.razor"
 using UfoBlog.Domain.Dto.Article;
 
 #line default
@@ -141,7 +141,7 @@ using UfoBlog.Domain.Dto.Article;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 58 "C:\Users\ufo233\OneDrive\Documents\UfoBlog\UfoBlog\Pages\BackStage\Article\List.razor"
+#line 60 "C:\Users\ufo233\OneDrive\Documents\UfoBlog\UfoBlog\Pages\BackStage\Article\List.razor"
        
     #region 初始化参数
 
@@ -156,15 +156,27 @@ using UfoBlog.Domain.Dto.Article;
 
     string[] color = { "#f50", "#2db7f5", "#87d068", "#108ee9", "HotPink", "DarkRed", "rgb(143, 201, 146)", "rgb(105, 58, 236)" };
 
+    RenderFragment icon =
+
+#line default
+#line hidden
+#nullable disable
+        (__builder2) => {
+            __builder2.AddMarkupContent(0, "<Icon Type=\"exclamation-circle\" Theme=\"outline\" b-w7m9jshr76></Icon>");
+        }
+#nullable restore
+#line 74 "C:\Users\ufo233\OneDrive\Documents\UfoBlog\UfoBlog\Pages\BackStage\Article\List.razor"
+                                                                                 ;
+
     #endregion
-
-
 
 #line default
 #line hidden
 #nullable disable
         [global::Microsoft.AspNetCore.Components.InjectAttribute] private IDbContextFactory<BlogContext> _dbFactory { get; set; }
         [global::Microsoft.AspNetCore.Components.InjectAttribute] private NavigationManager NavigationManager { get; set; }
+        [global::Microsoft.AspNetCore.Components.InjectAttribute] private NotificationService _notice { get; set; }
+        [global::Microsoft.AspNetCore.Components.InjectAttribute] private ModalService _modalService { get; set; }
         [global::Microsoft.AspNetCore.Components.InjectAttribute] private IMapper _mapper { get; set; }
     }
 }

@@ -50,5 +50,10 @@ namespace UfoBlog.Domain.Dto.Article
         /// 阅读量
         /// </summary>]
         public int ViewNum { get; set; }
+
+        /// <summary>
+        /// 是否已经点赞
+        /// </summary>
+        public bool IsLikeIt { get; set;}
     }
 }

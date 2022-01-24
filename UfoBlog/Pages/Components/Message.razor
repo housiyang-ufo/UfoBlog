@@ -13,23 +13,10 @@
         <div class="from">——@wordStr.From</div>
         <div style="clear:both;"></div>
     </div>
-    @*<div class="projects-section-header">
-        <p class="font">博主信息</p>
+    <div class="contentDiv" id="other">
+
     </div>
-    <div class="contentDiv">
-        @{
-            if (tagDto != null && tagDto.Count > 0)
-            {
-                var length = tagDto.Count;
-                @for (var i = 1; i <= length; i++)
-                {
-                    var index = i - 1;
-                    <Tag Color="@SwitchColor(i)">@tagDto[index].Name</Tag>
-                }
-            }
-        }
-    </div>*@
-    <div class="contentDiv" id="other"></div>
+    
 </div>
 
 @code {

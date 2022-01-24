@@ -91,7 +91,7 @@ using AntDesign;
 #nullable disable
 #nullable restore
 #line 12 "C:\Users\ufo233\OneDrive\Documents\UfoBlog\UfoBlog\_Imports.razor"
-using UfoBlog.Data;
+using UfoBlog.Domain;
 
 #line default
 #line hidden
@@ -133,20 +133,27 @@ using System.Globalization;
 #nullable disable
 #nullable restore
 #line 5 "C:\Users\ufo233\OneDrive\Documents\UfoBlog\UfoBlog\Pages\Index.razor"
-using UfoBlog.Domain.Dto.Article;
+using UfoBlog.Domain.Interface;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
 #line 6 "C:\Users\ufo233\OneDrive\Documents\UfoBlog\UfoBlog\Pages\Index.razor"
-using UfoBlog.Common.Authorization;
+using Microsoft.AspNetCore.Http;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
 #line 7 "C:\Users\ufo233\OneDrive\Documents\UfoBlog\UfoBlog\Pages\Index.razor"
+using UfoBlog.Domain.Dto.Article;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 8 "C:\Users\ufo233\OneDrive\Documents\UfoBlog\UfoBlog\Pages\Index.razor"
 using Microsoft.Extensions.Configuration;
 
 #line default
@@ -161,7 +168,7 @@ using Microsoft.Extensions.Configuration;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 81 "C:\Users\ufo233\OneDrive\Documents\UfoBlog\UfoBlog\Pages\Index.razor"
+#line 84 "C:\Users\ufo233\OneDrive\Documents\UfoBlog\UfoBlog\Pages\Index.razor"
       
 
     #region 初始化参数
@@ -177,7 +184,10 @@ using Microsoft.Extensions.Configuration;
 #line hidden
 #nullable disable
         [global::Microsoft.AspNetCore.Components.InjectAttribute] private IDbContextFactory<BlogContext> _dbFactory { get; set; }
+        [global::Microsoft.AspNetCore.Components.InjectAttribute] private IHttpContextAccessor _httpContext { get; set; }
+        [global::Microsoft.AspNetCore.Components.InjectAttribute] private IArticleService _articleService { get; set; }
         [global::Microsoft.AspNetCore.Components.InjectAttribute] private IConfiguration _configuration { get; set; }
+        [global::Microsoft.AspNetCore.Components.InjectAttribute] private ICommonService _commonService { get; set; }
         [global::Microsoft.AspNetCore.Components.InjectAttribute] private IconService iconService { get; set; }
         [global::Microsoft.AspNetCore.Components.InjectAttribute] private IMapper _mapper { get; set; }
         [global::Microsoft.AspNetCore.Components.InjectAttribute] private IJSRuntime _js { get; set; }

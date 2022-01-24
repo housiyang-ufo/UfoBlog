@@ -1,12 +1,12 @@
 ﻿@page "/Login/{Success?}";
 @layout MainLayout;
 @using System.ComponentModel;
-@using UfoBlog.Data.Interface;
+@using UfoBlog.Domain.Interface;
 @using Microsoft.AspNetCore.Http;
 @using Microsoft.AspNetCore.DataProtection;
 @using System.ComponentModel.DataAnnotations;
 
-@inject IAccountClient _client;
+@*@inject IAccountClient _client;*@
 @inject NotificationService _notice;
 @inject NavigationManager NavigationManager;
 @inject IHttpContextAccessor _context;
