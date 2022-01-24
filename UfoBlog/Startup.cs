@@ -6,12 +6,6 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Authentication.Cookies;
-using UfoBlog.Domain.Model;
-using Microsoft.EntityFrameworkCore;
-using UfoBlog.Domain.Extensions;
-using UfoBlog.Domain.Interface;
-using UfoBlog.Application.Service;
-using System.Reflection;
 
 namespace UfoBlog
 {
@@ -39,10 +33,8 @@ namespace UfoBlog
                 });
 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-            
-            //services.AddSingleton<ICommonService, CommonService>();
-            //services.AddTransient<IArticleService, ArticleService>();
 
+            //批量注入--服务自动注入
             services.BatchInjection();
         }
 
